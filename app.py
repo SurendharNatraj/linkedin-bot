@@ -15,7 +15,8 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "linkedin-bot-secret-2024")
 
 def get_groq_client(api_key):
-    return Groq(api_key=api_key)
+    import httpx
+    return Groq(api_key=api_key, http_client=httpx.Client())
 
 def analyze_profile(client, profile_text):
     prompt = f"""You are a LinkedIn profile intelligence expert. Analyze the following LinkedIn profile and extract structured insights.
